@@ -33,3 +33,75 @@ Chat.aggregate([
   // 'sortedChats' now contains the chat documents sorted by the date of the last sent message
   console.log(sortedChats);
 });
+
+
+
+const YourModel = require('./yourModel'); // Import your Mongoose model
+
+YourModel.aggregate([
+  // Unwind the array field to create a separate document for each element
+  {
+    $unwind: '$yourArrayField',
+  },
+  // Add your data to each element of the array
+  {
+    $set: {
+      'yourArrayField.newField': 'yourDataToAdd', // Add your data here
+    },
+  },
+  // Group the documents back into an array
+  {
+    $group: {
+      _id: '$_id', // Group by the original document's _id
+      yourArrayField: { $push: '$yourArrayField' },
+      // You can include other fields from the original document here if needed
+    },
+  },
+])
+  .exec((err, result) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // The modified array is in the 'result' variable
+    console.log(result);
+  });
+
+
+
+
+
+
+
+const YourModel = require('./yourModel'); // Import your Mongoose model
+
+YourModel.aggregate([
+  // Unwind the array field to create a separate document for each element
+  {
+    $unwind: '$yourArrayField',
+  },
+  // Add your data to each element of the array
+  {
+    $set: {
+      'yourArrayField.newField': 'yourDataToAdd', // Add your data here
+    },
+  },
+  // Group the documents back into an array
+  {
+    $group: {
+      _id: '$_id', // Group by the original document's _id
+      yourArrayField: { $push: '$yourArrayField' },
+      // You can include other fields from the original document here if needed
+    },
+  },
+])
+  .exec((err, result) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    // The modified array is in the 'result' variable
+    console.log(result);
+  });
+
+
